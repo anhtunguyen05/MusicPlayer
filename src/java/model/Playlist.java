@@ -1,0 +1,65 @@
+package model;
+
+public class Playlist {
+    private int playlistId;
+    private String playlistName;
+    private String playlistImg;
+    private int userId;
+    private String createdAt;
+
+    // Constructor
+    public Playlist(int playlistId, String playlistName, String playlistImg, int userId, String createdAt) {
+        this.playlistId = playlistId;
+        this.playlistName = playlistName;
+        this.playlistImg = playlistImg;
+        this.userId = userId;
+        this.createdAt = createdAt;
+    }
+
+    // Getters and Setters
+    public int getPlaylistId() {
+        return playlistId;
+    }
+
+    public void setPlaylistId(int playlistId) {
+        this.playlistId = playlistId;
+    }
+
+    public String getPlaylistName() {
+        return playlistName;
+    }
+
+    public void setPlaylistName(String playlistName) {
+        this.playlistName = playlistName;
+    }
+
+    public String getPlaylistImg() {
+        return playlistImg;
+    }
+
+    public void setPlaylistImg(String playlistImg) {
+        this.playlistImg = playlistImg;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Playlist{" + "playlistId=" + playlistId + ", playlistName=" + playlistName + ", playlistImg=" + playlistImg + ", userId=" + userId + ", createdAt=" + createdAt + '}';
+    }
+    
+}
