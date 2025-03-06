@@ -29,7 +29,7 @@ public class SongDAO {
                 String songImg = rs.getString("song_img");
                 String fileUrl = rs.getString("file_url");
                 int userId = rs.getInt("user_id");
-                String uploadDate = rs.getString("upload_date");
+                Date uploadDate = rs.getDate("upload_date");
 
                 Song song = new Song(songId, songName, artist, genre, songImg, fileUrl, userId, uploadDate);
                 songList.add(song);
@@ -58,7 +58,7 @@ public class SongDAO {
             statement.setString(4, song.getSongImg());
             statement.setString(5, song.getFileUrl());
             statement.setInt(6, song.getUserId());
-            statement.setString(7, song.getUploadDate());
+            statement.setDate(7, (Date) song.getUploadDate());
             statement.execute();
 
             statement.close();
@@ -82,7 +82,7 @@ public class SongDAO {
             statement.setString(4, song.getSongImg());
             statement.setString(5, song.getFileUrl());
             statement.setInt(6, song.getUserId());
-            statement.setString(7, song.getUploadDate());
+            statement.setDate(7, (Date) song.getUploadDate());
             statement.setInt(8, song.getSongId());
             statement.execute();
 
@@ -113,7 +113,7 @@ public class SongDAO {
                 String songImg = rs.getString("song_img");
                 String fileUrl = rs.getString("file_url");
                 int userId = rs.getInt("user_id");
-                String uploadDate = rs.getString("upload_date");
+                Date uploadDate = rs.getDate("upload_date");
 
                 song = new Song(songId, songName, artist, genre, songImg, fileUrl, userId, uploadDate);
             }
@@ -147,7 +147,7 @@ public class SongDAO {
                 String songImg = rs.getString("song_img");
                 String fileUrl = rs.getString("file_url");
                 int userId = rs.getInt("user_id");
-                String uploadDate = rs.getString("upload_date");
+                Date uploadDate = rs.getDate("upload_date");
 
                 // Tạo đối tượng Song và thêm vào danh sách
                 Song song = new Song(songId, songName, artist, genre, songImg, fileUrl, userId, uploadDate);

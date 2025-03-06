@@ -13,6 +13,7 @@ import DAO.PlaylistDAO;
 
         
 import DAO.UserDAO;
+import java.util.Date;
 
 /**
  *
@@ -27,16 +28,12 @@ public class TestDB {
         // TODO code application logic here
         UserDAO userDAO = new UserDAO();
         SongDAO songDAO = new SongDAO();
-//         studentDAO.addStudent(new Student("Tran", "Ly", "tran@y.c"));
-        // studentDAO.updateStudent(new Student(9,"Tran", "JJJJ", "tran@y.c"));
-        // Student s = studentDAO.getStudent("9");
-        // System.out.println("" + s);
-        //studentDAO.deleteStudent("1");
         List<User> l = userDAO.getUsersByName("j");
         System.out.println(l);
         
-                        
-//        userDAO.addUser(new User( "Ha Dong", "hadong@gmail.com", "hadongngu", "hehe.img", true, "khongbiet", true));
+        songDAO.addSong(new Song("hehe", "haha", "hh",
+                 "df", "dsf", 1, new java.sql.Date(new Date().getTime())));
+ //       userDAO.addUser(new User( "Ha Dong", "hadong@gmail.com", "hadongngu", "hehe.img", true, "khongbiet", true));
 //        List<Song> s = songDAO.getSongs();
 //        songDAO.deleteSong("1");
 //        userDAO.deleteUser("6");

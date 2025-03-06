@@ -13,6 +13,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -101,7 +102,10 @@ public class LoginServlet extends HttpServlet {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                request.getSession().setAttribute("username", rs.getString("username"));
+                int userId = rs.getInt("user_id");
+                HttpSession session = request.getSession();
+                session.setAttribute("user_id", userId);
+                session.setAttribute("username", username);
                 response.sendRedirect("homepage.jsp");
             } else {
                 response.sendRedirect("login.jsp?error=not_verified");

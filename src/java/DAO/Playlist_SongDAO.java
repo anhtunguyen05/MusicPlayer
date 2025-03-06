@@ -68,7 +68,7 @@ public class Playlist_SongDAO {
                 String songImg = rs.getString("song_img");
                 String fileUrl = rs.getString("file_url");
                 int userId = rs.getInt("user_id");
-                String uploadDate = rs.getString("upload_date");
+                Date uploadDate = rs.getDate("upload_date");
                 
                 Song song = new Song(songId, songName, artist, genre, songImg, fileUrl, userId, uploadDate);
                 songList.add(song);

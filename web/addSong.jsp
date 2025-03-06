@@ -19,17 +19,12 @@
             <form action="UploadServlet" method="post" enctype="multipart/form-data" class="p-4 border rounded bg-light">
                 <div class="mb-3">
                     <label for="title" class="form-label">Tên bài hát</label>
-                    <input type="text" class="form-control" id="title" name="title" required>
+                    <input type="text" class="form-control" id="song_name" name="song_name" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="artist" class="form-label">Ca sĩ</label>
                     <input type="text" class="form-control" id="artist" name="artist" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="album" class="form-label">Album</label>
-                    <input type="text" class="form-control" id="album" name="album">
                 </div>
 
                 <div class="mb-3">

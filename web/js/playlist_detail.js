@@ -74,11 +74,11 @@ const app = {
                     <div
                       class="thumb"
                       style="
-                        background-image: url('${song.cover_url}');
+                        background-image: url('${song.song_img}');
                       "
                     ></div>
                     <div class="body">
-                      <h3 class="title">${song.title}</h3>
+                      <h3 class="title">${song.song_name}</h3>
                       <p class="author">${song.artist}</p>
                     </div>
                     <div class="option">
@@ -281,8 +281,8 @@ const app = {
         return;
     }
     headingArtist.textContent = this.currentSong.artist;
-    headingSong.textContent = this.currentSong.title;
-    cdThumb.style.backgroundImage = `url('${this.currentSong.cover_url}')`;
+    headingSong.textContent = this.currentSong.song_name;
+    cdThumb.style.backgroundImage = `url('${this.currentSong.song_img}')`;
     audio.src = this.currentSong.file_url;
   },
 

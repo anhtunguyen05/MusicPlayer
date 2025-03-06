@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.Connection, dbContext.ConnectDB" %>
+<%@ page import="java.sql.Connection, dbcontext.ConnectDB" %>
 <%@ page import="java.sql.PreparedStatement, java.sql.ResultSet" %>
 
 
@@ -20,15 +20,14 @@
         <%@include file="/include/header.jsp"%>
         <div class="container mt-4">
             <h2 class="text-center text-primary">Danh sách Playlist</h2>
-
             <div class="row">
                 <%
                     try(Connection conn = ConnectDB.getInstance().openConnection()) {
                         
                         // Lấy danh sách playlist cùng số lượng bài hát
-                        String sql = "SELECT p.playlist_id, p.name, p.description, COUNT(ps.song_id) as song_count " +
+                        String sql = "SELECT p.playlist_id, p.playlist_name, COUNT(ps.song_id) as song_count " +
                                      "FROM Playlists p LEFT JOIN Playlist_Songs ps ON p.playlist_id = ps.playlist_id " +
-                                     "GROUP BY p.playlist_id, p.name, p.description";
+                                     "GROUP BY p.playlist_id, p.playlist_name";
 
                         PreparedStatement ps = conn.prepareStatement(sql);
                         ResultSet rs = ps.executeQuery();
@@ -38,8 +37,7 @@
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title"><%= rs.getString("name") %></h5>
-                            <p class="card-text"><%= rs.getString("description") %></p>
+                            <h5 class="card-title"><%= rs.getString("playlist_name") %></h5>
                             <p><strong>Số bài hát:</strong> <%= rs.getInt("song_count") %></p>
                             <a href="playlist_detail.jsp?playlist_id=<%= rs.getInt("playlist_id") %>" class="btn btn-primary">Xem chi tiết</a>
                         </div>

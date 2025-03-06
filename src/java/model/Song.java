@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author nguye
@@ -17,10 +19,10 @@ public class Song {
     private String songImg;
     private String fileUrl;
     private int userId;
-    private String uploadDate;
+    private Date uploadDate;
 
     // Constructor
-    public Song(int songId, String songName, String artist, String genre, String songImg, String fileUrl, int userId, String uploadDate) {
+    public Song(int songId, String songName, String artist, String genre, String songImg, String fileUrl, int userId, Date uploadDate) {
         this.songId = songId;
         this.songName = songName;
         this.artist = artist;
@@ -31,6 +33,16 @@ public class Song {
         this.uploadDate = uploadDate;
     }
 
+    public Song( String songName, String artist, String genre, String songImg, String fileUrl, int userId, Date uploadDate) {
+        this.songName = songName;
+        this.artist = artist;
+        this.genre = genre;
+        this.songImg = songImg;
+        this.fileUrl = fileUrl;
+        this.userId = userId;
+        this.uploadDate = uploadDate;
+    }
+    
     // Getters and Setters
     public int getSongId() {
         return songId;
@@ -88,11 +100,11 @@ public class Song {
         this.userId = userId;
     }
 
-    public String getUploadDate() {
+    public Date getUploadDate() {
         return uploadDate;
     }
 
-    public void setUploadDate(String uploadDate) {
+    public void setUploadDate(Date uploadDate) {
         this.uploadDate = uploadDate;
     }
 

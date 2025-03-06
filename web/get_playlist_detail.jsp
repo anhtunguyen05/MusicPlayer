@@ -6,7 +6,7 @@
 
 <%@ page contentType="application/json; charset=UTF-8" %>
 <%@ page import="org.json.simple.JSONArray, org.json.simple.JSONObject" %>
-<%@ page import="java.sql.Connection, dbContext.ConnectDB" %>
+<%@ page import="java.sql.Connection, dbcontext.ConnectDB" %>
 <%@ page import="java.sql.PreparedStatement, java.sql.ResultSet" %>
 
 <%
@@ -24,31 +24,11 @@
     }
 
     Connection conn = ConnectDB.getInstance().openConnection();
-
-    // Lấy thông tin playlist
-    String playlistQuery = "SELECT name, description FROM Playlists WHERE playlist_id = ? " ;
-    PreparedStatement psPlaylist = conn.prepareStatement(playlistQuery);
-    psPlaylist.setInt(1, Integer.parseInt(playlistId));
-    ResultSet rsPlaylist = psPlaylist.executeQuery();
-
-    String playlistName = "";
-    String playlistDescription = "";
-
-    if (rsPlaylist.next()) {
-        playlistName = rsPlaylist.getString("name");
-        playlistDescription = rsPlaylist.getString("description");
-    } else {
-         JSONObject error = new JSONObject();
-        error.put("error", "Playlist not found");
-        out.print(error.toString());
-        out.flush();
-        return;
-    }
     
     JSONArray songList = new JSONArray();
     
     // Lấy danh sách bài hát của playlist
-    String songsQuery = "SELECT s.song_id, s.title, s.artist, s.file_url, s.cover_url " +
+    String songsQuery = "SELECT s.song_id, s.song_name, s.artist, s.file_url, s.song_img " +
                         "FROM Playlist_Songs ps " +
                         "JOIN Songs s ON ps.song_id = s.song_id " +
                         "WHERE ps.playlist_id = ? ";
@@ -58,10 +38,10 @@
     int count = 1;
     while (rsSongs.next()) {
          JSONObject song = new JSONObject();
-            song.put("title", rsSongs.getString("title"));
+            song.put("song_name", rsSongs.getString("song_name"));
             song.put("artist", rsSongs.getString("artist"));
             song.put("file_url", rsSongs.getString("file_url"));
-            song.put("cover_url", rsSongs.getString("cover_url") != null ? rsSongs.getString("cover_url") : "https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg");
+            song.put("song_img", rsSongs.getString("song_img") != null ? rsSongs.getString("song_img") : "https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg");
 
             songList.add(song);
     }
