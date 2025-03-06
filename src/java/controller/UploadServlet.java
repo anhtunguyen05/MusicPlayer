@@ -124,18 +124,22 @@ public class UploadServlet extends HttpServlet {
         String savePath = appPath.replace("build\\web", "web");
         String uploadPath = savePath + UPLOAD_DIR;
         String uploadPathImg = savePath  + UPLOAD_DIR_COVER;
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) uploadDir.mkdir();
         
-        filePart.write(uploadPath + File.separator + fileName);
-       Files.copy(Paths.get(uploadPath + File.separator + fileName), Paths.get(appPathOther + UPLOAD_DIR + File.separator + fileName), StandardCopyOption.REPLACE_EXISTING);
+        if (coverPart != null && coverPart.getSize() > 0) {  // Kiểm tra file có dữ liệu không
+            coverFileName = Paths.get(coverPart.getSubmittedFileName()).getFileName().toString();
 
-        if (coverPart != null && coverFileName != null) {
+            File uploadImgDir = new File(uploadPathImg);
+            if (!uploadImgDir.exists()) uploadImgDir.mkdir();
+
             coverPart.write(uploadPathImg + File.separator + coverFileName);
-            Files.copy(Paths.get(uploadPathImg + File.separator + coverFileName), Paths.get(appPathOther + UPLOAD_DIR_COVER + File.separator + coverFileName), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(Paths.get(uploadPathImg + File.separator + coverFileName), 
+                       Paths.get(appPathOther + UPLOAD_DIR_COVER + File.separator + coverFileName), 
+                       StandardCopyOption.REPLACE_EXISTING);
+        } else {
+            coverFileName = null; // Không có ảnh bìa
         }
         
-        String song_img = "./" +  UPLOAD_DIR_COVER + "/" + coverFileName;
+        String song_img = coverFileName != null ? "./" +  UPLOAD_DIR_COVER + "/" + coverFileName : "";
         String file_url = "./"+  UPLOAD_DIR + "/" + fileName;
         Date date = new java.sql.Date(new Date().getTime());
         
