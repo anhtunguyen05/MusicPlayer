@@ -10,6 +10,7 @@ import DAO.SongDAO;
 import DAO.HistoryDAO;
 import DAO.LikeDAO;
 import DAO.PlaylistDAO;
+import DAO.Playlist_SongDAO;
 
         
 import DAO.UserDAO;
@@ -30,9 +31,10 @@ public class TestDB {
         SongDAO songDAO = new SongDAO();
         List<User> l = userDAO.getUsersByName("j");
         System.out.println(l);
-        
-        songDAO.addSong(new Song("hehe", "haha", "hh",
-                 "df", "dsf", 1, new java.sql.Date(new Date().getTime())));
+        Playlist_SongDAO p = new Playlist_SongDAO();
+        p.removeSongFromPlaylist(5, 14);
+//        songDAO.addSong(new Song("hehe", "haha", "hh",
+//                 "df", "dsf", 1, new java.sql.Date(new Date().getTime())));
  //       userDAO.addUser(new User( "Ha Dong", "hadong@gmail.com", "hadongngu", "hehe.img", true, "khongbiet", true));
 //        List<Song> s = songDAO.getSongs();
 //        songDAO.deleteSong("1");

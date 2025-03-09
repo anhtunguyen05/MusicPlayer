@@ -29,7 +29,8 @@
       rel="stylesheet"
     />
     </head>
-    <body>
+    <body data-fetch-page="get_mysong.jsp">
+        <%@include file="/include/header.jsp"%>
         <div class="container mt-5">
         
         
@@ -133,7 +134,8 @@
 
         <audio id="audio" src=""></audio>
       </div>
-    
+    <%@include file="/include/addPlaylist.jsp"%>
     <script src="./js/mysong.js?v=1.0"></script> 
+    <script src="./js/feature.js?v=1.0"></script>
     </body>
 </html>

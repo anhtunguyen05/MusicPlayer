@@ -1,14 +1,16 @@
 package model;
 
+import java.util.Date;
+
 public class Playlist {
     private int playlistId;
     private String playlistName;
     private String playlistImg;
     private int userId;
-    private String createdAt;
+    private Date createdAt;
 
     // Constructor
-    public Playlist(int playlistId, String playlistName, String playlistImg, int userId, String createdAt) {
+    public Playlist(int playlistId, String playlistName, String playlistImg, int userId, Date createdAt) {
         this.playlistId = playlistId;
         this.playlistName = playlistName;
         this.playlistImg = playlistImg;
@@ -16,6 +18,13 @@ public class Playlist {
         this.createdAt = createdAt;
     }
 
+     public Playlist( String playlistName, String playlistImg, int userId, Date createdAt) {
+        this.playlistName = playlistName;
+        this.playlistImg = playlistImg;
+        this.userId = userId;
+        this.createdAt = createdAt;
+    }
+    
     // Getters and Setters
     public int getPlaylistId() {
         return playlistId;
@@ -49,11 +58,11 @@ public class Playlist {
         this.userId = userId;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
