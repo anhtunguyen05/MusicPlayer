@@ -180,4 +180,32 @@ public class UserDAO {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    // Cập nhật trạng thái VIP của người dùng theo ID
+    public boolean updateVipStatus(int idd, boolean isVip) {
+        boolean success = false;
+        try {
+            ConnectDB db = ConnectDB.getInstance();
+            Connection con = db.openConnection();
+            String sql = "UPDATE Users SET is_vip = ? WHERE user_id = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+
+            int userId = idd;
+            statement.setBoolean(1, isVip);
+            statement.setInt(2, userId);
+
+            int rowsUpdated = statement.executeUpdate(); // Trả về số dòng được cập nhật
+
+            if (rowsUpdated > 0) {
+                success = true; // Nếu có ít nhất một dòng được cập nhật, trả về true
+            }
+
+            statement.close();
+            con.close();
+        } catch (Exception ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return success; // Trả về kết quả thành công hoặc thất bại
+    }
+
 }
