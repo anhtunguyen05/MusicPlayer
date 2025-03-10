@@ -29,7 +29,7 @@
                   <a class="nav-link" href="./mysong.jsp">Library</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./addSong.jsp">Up songs</a>
+                    <a class="nav-link" href="./UploadServlet">Up songs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./login.jsp">Login</a>
