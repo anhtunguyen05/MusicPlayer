@@ -17,8 +17,13 @@
         <servlet-class>controller.UploadServlet</servlet-class>
     </servlet>
     <servlet>
+
         <servlet-name>UpdateVipStatusServlet</servlet-name>
         <servlet-class>controller.UpdateVipStatusServlet</servlet-class>
+  
+        <servlet-name>PlaylistServlet</servlet-name>
+        <servlet-class>controller.PlaylistServlet</servlet-class>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -37,7 +42,15 @@
         <url-pattern>/UploadServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
         <servlet-name>UpdateVipStatusServlet</servlet-name>
         <url-pattern>/UpdateVipStatusServlet</url-pattern>
     </servlet-mapping>
+        <servlet-name>PlaylistServlet</servlet-name>
+        <url-pattern>/PlaylistServlet</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>/homepage.jsp</welcome-file>
+    </welcome-file-list>
+
 </web-app>
