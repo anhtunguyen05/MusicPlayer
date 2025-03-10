@@ -28,9 +28,7 @@ html {
 }
 
 .player {
-  position: relative;
-
-  margin: 0 auto;
+ 
 }
 
 .player .icon-pause {
@@ -140,21 +138,21 @@ header h2 {
 .progress {
   width: 100%;
   -webkit-appearance: none;
-  height: 3px;
+  height: 3px !important;
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
+  -webkit-transition: 0.2s !important;
+  transition: opacity 0.2s !important;
 }
 
 .progress::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 6px;
-  height: 6px;
-  background-color: var(--primary-color);
-  cursor: pointer;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 6px !important;
+  height: 6px !important;
+  background-color: var(--primary-color) !important;
+  cursor: pointer !important;
 }
 
 /* PLAYLIST */
@@ -227,4 +225,55 @@ header h2 {
 }
 #volume::-webkit-slider-thumb {
   border-radius: 50px;
+}
+
+/* Ẩn menu mặc định */
+.playlist-menu {
+  position: absolute;
+  background: white;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  display: none;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* Khi menu mở, hiển thị với hiệu ứng fade */
+.playlist-menu.show {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Nút "..." */
+.option {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Điều chỉnh vị trí menu */
+.option .playlist-menu {
+  top: 80%;
+  transform: translateX(-75%);
+}
+
+.form-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.form-content {
+  text-align: center;
+}
+
+.item-menu{
+    border-top: 1px solid black;
 }

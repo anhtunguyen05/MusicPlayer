@@ -82,7 +82,8 @@ const app = {
                       <p class="author">${song.artist}</p>
                     </div>
                     <div class="option">
-                      <i class="fas fa-ellipsis-h"></i>
+                      <i class="fas fa-ellipsis-h" onclick="toggleMenu(this)"></i>
+                      <div class="playlist-menu" onclick="showPlaylistForm(event)" >Add to play list</div>
                     </div>
                   </div>`;
     });
@@ -344,3 +345,4 @@ const app = {
     },
 };
 app.start();
+

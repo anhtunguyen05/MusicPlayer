@@ -168,3 +168,32 @@ function Validator(formSelector) {
     }
   };
 }
+
+function toggleMenu(optionBtn) {
+  // Đóng tất cả menu trước khi mở menu mới
+  var allMenus = document.getElementsByClassName("playlist-menu");
+  for (var i = 0; i < allMenus.length; i++) {
+      if (allMenus[i] !== optionBtn.nextElementSibling) {
+          allMenus[i].classList.remove("show");
+      }
+  }
+
+  // Lấy menu của phần tử vừa bấm và bật/tắt hiển thị
+  var menu = optionBtn.nextElementSibling;
+  if (menu) {
+      menu.classList.toggle("show");
+  }
+}
+
+// Đóng menu khi bấm ra ngoài
+document.onclick = function (event) {
+  var isOption = event.target.classList.contains("option");
+  var isMenu = event.target.classList.contains("playlist-menu");
+  
+  if (!isOption && !isMenu) {
+      var menus = document.getElementsByClassName("playlist-menu");
+      for (var i = 0; i < menus.length; i++) {
+          menus[i].classList.remove("show");
+      }
+  }
+};

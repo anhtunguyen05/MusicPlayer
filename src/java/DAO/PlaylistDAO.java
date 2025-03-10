@@ -26,7 +26,7 @@ public class PlaylistDAO {
                 String playlistName = rs.getString("playlist_name");
                 String playlistImg = rs.getString("playlist_img");
                 int userId = rs.getInt("user_id");
-                String createdAt = rs.getString("created_at");
+                Date createdAt = rs.getDate("created_at");
 
                 Playlist playlist = new Playlist(playlistId, playlistName, playlistImg, userId, createdAt);
                 playlistList.add(playlist);
@@ -52,7 +52,7 @@ public class PlaylistDAO {
             statement.setString(1, playlist.getPlaylistName());
             statement.setString(2, playlist.getPlaylistImg());
             statement.setInt(3, playlist.getUserId());
-            statement.setString(4, playlist.getCreatedAt());
+            statement.setDate(4, (Date) playlist.getCreatedAt());
             statement.execute();
 
             statement.close();
@@ -73,7 +73,7 @@ public class PlaylistDAO {
             statement.setString(1, playlist.getPlaylistName());
             statement.setString(2, playlist.getPlaylistImg());
             statement.setInt(3, playlist.getUserId());
-            statement.setString(4, playlist.getCreatedAt());
+            statement.setDate(4, (Date) playlist.getCreatedAt());
             statement.setInt(5, playlist.getPlaylistId());
             statement.execute();
 
@@ -101,7 +101,7 @@ public class PlaylistDAO {
                 String playlistName = rs.getString("playlist_name");
                 String playlistImg = rs.getString("playlist_img");
                 int userId = rs.getInt("user_id");
-                String createdAt = rs.getString("created_at");
+                Date createdAt = rs.getDate("created_at");
 
                 playlist = new Playlist(playlistId, playlistName, playlistImg, userId, createdAt);
             }
@@ -132,7 +132,7 @@ public class PlaylistDAO {
                 String playlistName = rs.getString("playlist_name");
                 String playlistImg = rs.getString("playlist_img");
                 int userId = rs.getInt("user_id");
-                String createdAt = rs.getString("created_at");
+                Date createdAt = rs.getDate("created_at");
 
                 // Tạo đối tượng Playlist và thêm vào danh sách
                 Playlist playlist = new Playlist(playlistId, playlistName, playlistImg, userId, createdAt);
