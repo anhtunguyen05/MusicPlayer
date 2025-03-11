@@ -32,12 +32,13 @@
       rel="stylesheet"
     />
 </head>
-<body>
+<body data-fetch-page="get_playlist_detail.jsp">
+    <%@include file="/include/header.jsp"%>
     <div class="container mt-5">
         
         
         <h4>Danh sách bài hát</h4>
-        <table class="table table-striped player">
+        <table class="table table-striped">
             
             <div class="playlist">
                  <div class="song">
@@ -65,7 +66,7 @@
         
         
     </div>
-    <div class="dashboard">
+    <div class="dashboard player">
         <!-- Header -->
         <div class="dashboard__left">
           <header>
@@ -136,7 +137,8 @@
 
         <audio id="audio" src=""></audio>
       </div>
-    
-    <script src="./js/playlist_detail.js?v=1.0"></script>        
+      <%@include file="/include/addPlaylist.jsp"%>
+    <script src="./js/playlist_detail.js?v=1.0"></script>
+    <script src="./js/feature.js?v=1.0"></script>    
 </body>
 </html>

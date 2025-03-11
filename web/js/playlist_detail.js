@@ -29,9 +29,7 @@ const mute = $("#mute");
 const dashboard = $(".dashboard");
 const currentTime = $("#current-time");
 const duration = $("#duration");
-
-
-
+const fetchPage = document.body.getAttribute("data-fetch-page"); // Lấy trang JSP từ HTML
 
 
 const app = {
@@ -48,7 +46,7 @@ const app = {
   },
   
   loadSongs: function(){
-      fetch(`get_playlist_detail.jsp?playlist_id=${playlistId}`)
+      fetch(fetchPage == 'get_playlist_detail.jsp' ?  `${fetchPage}?playlist_id=${playlistId}` : fetchPage)
           .then(response => response.json())
           .then(data => {
                console.log("Dữ liệu từ API:", data); // Kiểm tra dữ liệu nhận được
@@ -82,7 +80,13 @@ const app = {
                       <p class="author">${song.artist}</p>
                     </div>
                     <div class="option">
-                      <i class="fas fa-ellipsis-h"></i>
+                      <i class="fas fa-ellipsis-h" onclick="toggleMenu(this)"></i>
+                      <div class="playlist-menu">
+                        <div onclick="showPlaylistForm(event, ${song.song_id})">Add to play list</div>
+                        <div class="item-menu remove-from-playlist" 
+                            onclick="removeFromPlaylist(event, '${song.song_id}', '${playlistId}')"
+                        >Delete</div>
+                      </div>
                     </div>
                   </div>`;
     });
@@ -310,6 +314,27 @@ const app = {
       });
     }, 300);
   },
+  handleKeyPress: (event) => {
+       const skipTime = 5; // Số giây tua đi/tua lại
+
+        switch (event.code) {
+            case "ArrowRight": // Tua tới 5 giây
+                audio.currentTime += skipTime;
+                break;
+            case "ArrowLeft": // Tua lùi 5 giây
+                audio.currentTime -= skipTime;
+                break;
+            case "Space": // Play/Pause khi nhấn Space
+                event.preventDefault(); // Ngăn trình duyệt cuộn trang khi nhấn Space
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+                break;
+        }
+        
+    },
   startAfterLoading:  function () {
       
      if (!this.songs || this.songs.length === 0) {
@@ -338,9 +363,12 @@ const app = {
     //
     randomBtn.classList.toggle("active", this.isRandom);
     repeatBtn.classList.toggle("active", this.isRepeat);
+    
+    document.addEventListener("keydown", this.handleKeyPress);
   },
     start: function () {
       this.loadSongs();  // Chờ tải xong rồi mới chạy tiếp
     },
 };
 app.start();
+

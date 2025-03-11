@@ -16,6 +16,15 @@
         <servlet-name>UploadServlet</servlet-name>
         <servlet-class>controller.UploadServlet</servlet-class>
     </servlet>
+    <servlet>
+
+        <servlet-name>UpdateVipStatusServlet</servlet-name>
+        <servlet-class>controller.UpdateVipStatusServlet</servlet-class>
+  
+        <servlet-name>PlaylistServlet</servlet-name>
+        <servlet-class>controller.PlaylistServlet</servlet-class>
+
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -32,6 +41,7 @@
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/UploadServlet</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
     <welcome-file-list>
         <welcome-file>homepage.jsp</welcome-file>
     </welcome-file-list>
@@ -44,4 +54,18 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
+=======
+    <servlet-mapping>
+
+        <servlet-name>UpdateVipStatusServlet</servlet-name>
+        <url-pattern>/UpdateVipStatusServlet</url-pattern>
+    </servlet-mapping>
+        <servlet-name>PlaylistServlet</servlet-name>
+        <url-pattern>/PlaylistServlet</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>/homepage.jsp</welcome-file>
+    </welcome-file-list>
+
+>>>>>>> 943125c29b3da1343a172d8e02d7b4806436af94
 </web-app>
