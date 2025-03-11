@@ -41,6 +41,20 @@
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/UploadServlet</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
+    <welcome-file-list>
+        <welcome-file>homepage.jsp</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>controller.LogoutServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+=======
     <servlet-mapping>
 
         <servlet-name>UpdateVipStatusServlet</servlet-name>
@@ -53,4 +67,5 @@
         <welcome-file>/homepage.jsp</welcome-file>
     </welcome-file-list>
 
+>>>>>>> 943125c29b3da1343a172d8e02d7b4806436af94
 </web-app>
