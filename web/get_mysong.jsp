@@ -35,6 +35,7 @@
     int count = 1;
     while (rsSongs.next()) {
          JSONObject song = new JSONObject();
+            song.put("song_id", rsSongs.getString("song_id"));
             song.put("song_name", rsSongs.getString("song_name"));
             song.put("artist", rsSongs.getString("artist"));
             song.put("file_url", rsSongs.getString("file_url"));

@@ -1,0 +1,107 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 8, 2025, 1:24:07 AM
+    Author     : pc
+*/
+
+.modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 600px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            cursor: pointer;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab {
+            flex: 1;
+            padding: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+        .actives {
+            color: orange;
+            font-weight: bold;
+            border-bottom: 3px solid orange;
+        }
+        .content {
+            display: none;
+            margin-top: 20px;
+        }
+        .content.actives {
+            display: block;
+        }
+        .button {
+            background-color: orange;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .music-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.song-cover {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.song-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.listens {
+    font-size: 14px;
+    color: gray;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.add-to-playlist {
+    background: #f97316;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: not-allowed;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.add-to-playlist i {
+    color: white;
+}
+.filter{
+    width: 100%;
+    padding: 8px; 
+    margin-top: 10px;
+}

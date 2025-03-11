@@ -13,6 +13,19 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     </head>
     <body>
+        <%@ page session="true" %>
+        <%
+            Boolean isVip = (Boolean) session.getAttribute("isVip");
+            if (isVip != null && isVip) {
+        %>
+        <script>
+            alert("Congratulations! You are now a VIP Member! Enjoy exclusive access to our premium services. 🎉");
+        </script>
+        <%
+                session.removeAttribute("isVip"); // Xóa cờ để không hiển thị lại thông báo
+            }
+        %>
+
         <div class="container mt-5">
             <h2 class="text-center">🎶 Upload Nhạc Mới</h2>
 
