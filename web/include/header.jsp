@@ -8,53 +8,14 @@
         <title>JSP Page</title>
     </head>
     <body>
-<<<<<<< HEAD
+
         <%@ page session="true" %>
         <%
             String username = (String) session.getAttribute("username");
         %>
-=======
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-          <div class="container-fluid">
-              <a class="navbar-brand" href="#"><img class="logo" src="./assets/img/logo.png" alt="alt"/></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="./mysong.jsp">Library</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./UploadServlet">Up songs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./login.jsp">Login</a>
-                </li>
-              </ul>
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          User
-<!--                          <img src="./img/user-icon-on-transparent-background-free-png.webp" alt="alt"/>-->
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Profile</a></li>
-                          <li><a class="dropdown-item" href="#">Another action</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#">Logout</a></li>
-                        </ul>
-                  </li>
-                </ul>
->>>>>>> 943125c29b3da1343a172d8e02d7b4806436af94
 
+        
+        
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"><img class="logo" src="./assets/img/logo.png" alt="alt"/></a>
@@ -66,7 +27,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="/HomepageServlet">Home</a>
                         </li>
 
                         <li class="nav-item">
@@ -86,7 +47,7 @@
                             <%
                                 if (username != null) { // Nếu đã đăng nhập
                             %>
-                            <a class="nav-link" href="./addSong.jsp">Up songs</a>
+                            <a class="nav-link" href="./SongServlet">Up songs</a>
                             <%
                                 } else { // Nếu chưa đăng nhập
                             %>

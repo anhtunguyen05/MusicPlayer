@@ -41,7 +41,7 @@ import model.User;
         maxFileSize = 1024 * 1024 * 50, // 50MB
         maxRequestSize = 1024 * 1024 * 100 // 100MB
 )
-public class UploadServlet extends HttpServlet {
+public class SongServlet extends HttpServlet {
 
     private static final String UPLOAD_DIR = "music";
     private static final String UPLOAD_DIR_COVER = "song_img";
@@ -110,65 +110,75 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Nhận dữ liệu từ form
+        String command = request.getParameter("command");
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("user_id");
-
+         SongDAO songDao = new SongDAO();
         if (userId == null) {
             System.out.println("⚠ Không tìm thấy user_id trong session!");
             response.sendRedirect("login.jsp"); // Chuyển hướng nếu chưa đăng nhập
             return;
         }
+        
+        switch (command) {
+            case "remove":
+                String songId = request.getParameter("songId");
+                songDao.deleteSong(songId);
+                break;
+            case "add":
+                // Nhận dữ liệu từ form
+                String name = request.getParameter("song_name");
+                String artist = request.getParameter("artist");
+                String genre = request.getParameter("genre");
 
-        String name = request.getParameter("song_name");
-        String artist = request.getParameter("artist");
-        String genre = request.getParameter("genre");
+                // Lấy file nhạc
+                Part filePart = (Part) request.getPart("file");
 
-        // Lấy file nhạc
-        Part filePart = (Part) request.getPart("file");
+                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                // Lấy ảnh bìa (nếu có)
+                Part coverPart = (Part) request.getPart("cover");
 
-        // Lấy ảnh bìa (nếu có)
-        Part coverPart = (Part) request.getPart("cover");
+                String coverFileName = coverPart != null ? Paths.get(coverPart.getSubmittedFileName()).getFileName().toString() : null;
 
-        String coverFileName = coverPart != null ? Paths.get(coverPart.getSubmittedFileName()).getFileName().toString() : null;
+                // Lưu file lên server
+                String appPath = getServletContext().getRealPath("");
+                String appPathOther = appPath;
+                String savePath = appPath.replace("build\\web", "web");
+                String uploadPath = savePath + UPLOAD_DIR;
+                String uploadPathImg = savePath + UPLOAD_DIR_COVER;
 
-        // Lưu file lên server
-        String appPath = getServletContext().getRealPath("");
-        String appPathOther = appPath;
-        String savePath = appPath.replace("build\\web", "web");
-        String uploadPath = savePath + UPLOAD_DIR;
-        String uploadPathImg = savePath + UPLOAD_DIR_COVER;
+                if (coverPart != null && coverPart.getSize() > 0) {  // Kiểm tra file có dữ liệu không
+                    coverFileName = Paths.get(coverPart.getSubmittedFileName()).getFileName().toString();
 
-        if (coverPart != null && coverPart.getSize() > 0) {  // Kiểm tra file có dữ liệu không
-            coverFileName = Paths.get(coverPart.getSubmittedFileName()).getFileName().toString();
+                    File uploadImgDir = new File(uploadPathImg);
+                    if (!uploadImgDir.exists()) {
+                        uploadImgDir.mkdir();
+                    }
 
-            File uploadImgDir = new File(uploadPathImg);
-            if (!uploadImgDir.exists()) {
-                uploadImgDir.mkdir();
-            }
+                    coverPart.write(uploadPathImg + File.separator + coverFileName);
+                    Files.copy(Paths.get(uploadPathImg + File.separator + coverFileName),
+                            Paths.get(appPathOther + UPLOAD_DIR_COVER + File.separator + coverFileName),
+                            StandardCopyOption.REPLACE_EXISTING);
+                } else {
+                    coverFileName = null; // Không có ảnh bìa
+                }
 
-            coverPart.write(uploadPathImg + File.separator + coverFileName);
-            Files.copy(Paths.get(uploadPathImg + File.separator + coverFileName),
-                    Paths.get(appPathOther + UPLOAD_DIR_COVER + File.separator + coverFileName),
-                    StandardCopyOption.REPLACE_EXISTING);
-        } else {
-            coverFileName = null; // Không có ảnh bìa
+                String song_img = coverFileName != null ? "./" + UPLOAD_DIR_COVER + "/" + coverFileName : "";
+                String file_url = "./" + UPLOAD_DIR + "/" + fileName;
+                Date date = new java.sql.Date(new Date().getTime());
+
+                Song song = new Song(name, artist, genre,
+                        song_img, file_url, userId, date);
+                songDao.addSong(song);
+
+                // Chuyển hướng lại trang upload
+                response.sendRedirect("homepage.jsp");
+                break;
+            default:
+                throw new AssertionError();
         }
-
-        String song_img = coverFileName != null ? "./" + UPLOAD_DIR_COVER + "/" + coverFileName : "";
-        String file_url = "./" + UPLOAD_DIR + "/" + fileName;
-        Date date = new java.sql.Date(new Date().getTime());
-
-        Song song = new Song(name, artist, genre,
-                song_img, file_url, userId, date);
-
-        SongDAO songDao = new SongDAO();
-        songDao.addSong(song);
-
-        // Chuyển hướng lại trang upload
-        response.sendRedirect("homepage.jsp");
+        
     }
 
     /**

@@ -16,6 +16,11 @@ public class History {
         this.listenedAt = listenedAt;
     }
 
+    public History( int userId, int songId) {
+        this.userId = userId;
+        this.songId = songId;
+    }
+    
     // Getters and Setters
     public int getHistoryId() {
         return historyId;
