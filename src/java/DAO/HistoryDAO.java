@@ -42,7 +42,7 @@ public class HistoryDAO {
 
     // Thêm lịch sử nghe bài hát
     public void addHistory(History history) {
-        String sql = "INSERT INTO MUSICPLAYER.History (user_id, song_id, listened_at) VALUES (?, ?, ?)";  // Cập nhật với tên cơ sở dữ liệu MUSICPLAYER
+        String sql = "INSERT INTO History (user_id, song_id) VALUES (?, ?)";  // Cập nhật với tên cơ sở dữ liệu MUSICPLAYER
         ConnectDB db = ConnectDB.getInstance();
 
         try {
@@ -50,7 +50,7 @@ public class HistoryDAO {
             PreparedStatement statement = con.prepareStatement(sql);
             statement.setInt(1, history.getUserId());
             statement.setInt(2, history.getSongId());
-            statement.setDate(3, history.getListenedAt());  // Cập nhật với kiểu Date
+           // statement.setDate(3, history.getListenedAt());  // Cập nhật với kiểu Date
             statement.execute();
 
             statement.close();
