@@ -9,9 +9,9 @@
             <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/js/playlist_detail.js</file>
             <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/src/java/controller/GetPlaylistServlet.java</file>
             <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/src/java/controller/PlaylistServlet.java</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/assets/css/playlist_detail.css</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/src/java/controller/GetHistoryServlet.java</file>
+            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/src/java/DAO/HistoryDAO.java</file>
         </group>
     </open-files>
 </project-private>
