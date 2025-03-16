@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import model.User;
 
 /**
  *
@@ -103,8 +104,9 @@ public class LoginServlet extends HttpServlet {
 
             if (rs.next()) {
                 int userId = rs.getInt("user_id");
+                String userIdStr = String.valueOf(userId);
                 HttpSession session = request.getSession();
-                session.setAttribute("user_id", userId);
+                session.setAttribute("user_id", userIdStr);
                 session.setAttribute("username", username);
                 response.sendRedirect("HomepageServlet");
             } else {
@@ -114,6 +116,7 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
             response.sendRedirect("login.jsp?error=1");
         }
+
     }
 
     /** 
