@@ -89,7 +89,8 @@ public class VerifyServlet extends HttpServlet {
                 ps.executeUpdate();
                 response.sendRedirect("login.jsp?verified=1");
             } else {
-                response.sendRedirect("error.jsp");
+                request.setAttribute("username", username);
+                request.getRequestDispatcher("verify.jsp?error=not_correct").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -56,6 +56,19 @@
                                 }
                             %>
                         </li>
+                        <li class="nav-item">
+                            <%
+                                if (username != null) { // Nếu đã đăng nhập
+                            %>
+                            <a class="nav-link" href="./history.jsp">History</a>
+                            <%
+                                } else { // Nếu chưa đăng nhập
+                            %>
+                            <a class="nav-link" href="login.jsp" onclick="return confirm('Bạn cần đăng nhập để xem lịch sủ bài hát!');">Up songs</a>
+                            <%
+                                }
+                            %>
+                        </li>
                     </ul>
 
                     <!-- Search bar căn giữa -->

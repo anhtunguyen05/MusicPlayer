@@ -37,6 +37,10 @@
         <servlet-class>controller.GetPlaylistServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>GetHistoryServlet</servlet-name>
+        <servlet-class>controller.GetHistoryServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>MyPlaylistServlet</servlet-name>
         <servlet-class>controller.MyPlaylistServlet</servlet-class>
     </servlet>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>GetPlaylistServlet</servlet-name>
         <url-pattern>/GetPlaylistServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetHistoryServlet</servlet-name>
+        <url-pattern>/GetHistoryServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MyPlaylistServlet</servlet-name>

@@ -57,9 +57,13 @@
                         </div>
                         <%
                             String error = request.getParameter("error");
-                            if(error!=null){
+                            if(error=="not_verify"){
                         %>
                         <h5 class="form-message text-danger">Email is not verify, please check your email!</h5>
+                        <%
+                            }else{
+                        %>
+                         <h5 class="form-message text-danger">Username or password incorrect, please try again!</h5>
                         <%
                             }
                         %>

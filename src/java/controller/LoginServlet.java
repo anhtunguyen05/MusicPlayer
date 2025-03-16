@@ -108,11 +108,11 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("username", username);
                 response.sendRedirect("HomepageServlet");
             } else {
-                response.sendRedirect("login.jsp?error=not_verified");
+                response.sendRedirect("login.jsp?error=not_correct");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("login.jsp?error=1");
+            response.sendRedirect("login.jsp?error=not_verify");
         }
     }
 

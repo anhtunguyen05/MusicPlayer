@@ -1,0 +1,313 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 1, 2025, 3:09:34 AM
+    Author     : pc
+*/
+
+:root {
+  --primary-color: #ec1f55;
+  --text-color: #333;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.player {
+ 
+}
+
+.player .icon-pause {
+  display: none;
+}
+
+.player.playing .icon-pause {
+  display: inline-block;
+}
+
+.player.playing .icon-play {
+  display: none;
+}
+
+.dashboard {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px 8px;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.dashboard__left{
+  width: 20%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  /* margin-bottom: 10px; */
+}
+
+header h4 {
+  color: var(--text-color);
+  font-size: 12px;
+}
+
+header h2 {
+  color: var(--primary-color);
+  font-size: 16px;
+}
+
+/* CD */
+.cd {
+  display: flex;
+  margin: auto;
+  width: 50px;
+}
+
+.cd-thumb {
+  width: 100%;
+  padding-top: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  background-size: cover;
+  margin: auto;
+}
+
+/* CONTROL */
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 4px 0;
+}
+
+.control .btn {
+  color: #666;
+  padding: 18px;
+  font-size: 18px;
+}
+
+.control .btn.active {
+  color: var(--primary-color);
+}
+
+.control .btn-toggle-play {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+}
+
+#adTime {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  align-items: center;
+}
+
+.time{
+  font-size: 12px;
+}
+
+.progress {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 3px !important;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s !important;
+  transition: opacity 0.2s !important;
+}
+
+.progress::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 6px !important;
+  height: 6px !important;
+  background-color: var(--primary-color) !important;
+  cursor: pointer !important;
+}
+
+/* PLAYLIST */
+.playlist {
+  padding: 12px;
+}
+
+.song {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  background-color: #fff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.song.active {
+  background-color: var(--primary-color);
+}
+
+.song:active {
+  opacity: 0.8;
+}
+
+.song.active .option,
+.song.active .author,
+.song.active .title {
+  color: #fff;
+}
+
+.song .thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-size: cover;
+  margin: 0 8px;
+}
+
+.song .body {
+  flex: 1;
+  padding: 0 16px;
+}
+
+.song .title {
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.song .author {
+  font-size: 12px;
+  color: #999;
+}
+
+.song .option {
+  padding: 16px 8px;
+  color: #999;
+  font-size: 18px;
+}
+#adVolume {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(-4%);
+  gap: 20px;
+}
+#volume {
+  width: 50%;
+  border-radius: 50px;
+}
+#volume::-webkit-slider-thumb {
+  border-radius: 50px;
+}
+
+/* Ẩn menu mặc định */
+.playlist-menu {
+  position: absolute;
+  background: white;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  display: none;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* Khi menu mở, hiển thị với hiệu ứng fade */
+.playlist-menu.show {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Nút "..." */
+.option {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Điều chỉnh vị trí menu */
+.option .playlist-menu {
+  top: 80%;
+  transform: translateX(-75%);
+}
+
+.form-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.form-content {
+  text-align: center;
+}
+
+.item-menu{
+    border-top: 1px solid black;
+}
+
+.playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.playlist-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.playlist-actions button {
+    padding: 8px 12px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}

@@ -39,6 +39,7 @@ const app = {
   isPlaying: false,
   isRandom: false,
   isRepeat: false,
+  isSave: false,
   config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
 
     songs: [],
@@ -64,7 +65,44 @@ const app = {
             }) 
             .catch(error => console.error("Lỗi tải danh sách bài hát:", error));
   },
-  
+  renderHistory: function () {
+
+    // Nhóm bài hát theo ngày nghe
+    const historyByDate = {};
+    this.songs.forEach((song) => {
+        let date = song.listened_at ? song.listened_at.split(" ")[0] : "Không rõ ngày";
+        if (!historyByDate[date]) {
+            historyByDate[date] = [];
+        }
+        historyByDate[date].push(song);
+    });
+
+    // Tạo HTML từ dữ liệu nhóm theo ngày
+    const htmls2 = Object.keys(historyByDate)
+        .sort((a, b) => new Date(b) - new Date(a)) // Sắp xếp theo ngày mới nhất
+        .map((date) => {
+            let songListHtml = historyByDate[date].map((song) => {
+                return `
+                <div class="song">
+                    <div class="thumb" style="background-image: url('${song.song_img}');"></div>
+                    <div class="body">
+                        <h3 class="title">${song.song_name}</h3>
+                        <p class="author">${song.artist}</p>
+                    </div>
+                </div>`;
+            }).join("");
+
+            return `
+                <div class="history-day">
+                    <h2 class="date-header">${date}</h2>
+                    ${songListHtml}
+                </div>`;
+        });
+
+    // Hiển thị lịch sử nghe nhạc
+    playlist.innerHTML = htmls2.join("");
+},
+
   render: function () {
     const htmls = this.songs.map((song, index) => {
       return `
@@ -133,6 +171,10 @@ const app = {
       this.isPlaying = true;
       player.classList.add("playing");
       cdThumbAnimate.play();
+      if(this.isSave==false){
+          this.isSave = true;
+          this.saveHistory(this.currentSong.song_id)
+      }
     };
 
     // Khi song pause
@@ -287,7 +329,9 @@ const app = {
     headingSong.textContent = this.currentSong.song_name;
     cdThumb.style.backgroundImage = `url('${this.currentSong.song_img}')`;
     audio.src = this.currentSong.file_url;
-    
+    if(this.isSave==true){
+        this.saveHistory(this.currentSong.song_id);
+    }
   },
   
     saveHistory: function (songId) {
@@ -377,10 +421,13 @@ const app = {
   
     //
     // this.nextSong();
-    this.saveHistory(this.currentSong.song_id);
+    if(fetchPage=="GetHistoryServlet"){
+        this.renderHistory();
+    }
     // Render playlist
-    this.render();
-
+    else{
+        this.render();
+    }
     //
     randomBtn.classList.toggle("active", this.isRandom);
     repeatBtn.classList.toggle("active", this.isRepeat);
