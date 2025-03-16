@@ -1,7 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="DAO.UserDAO" %>
-<%@page import="model.User" %>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,6 +13,9 @@
         <%
             String username = (String) session.getAttribute("username");
         %>
+
+        
+        
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"><img class="logo" src="./assets/img/logo.png" alt="alt"/></a>
@@ -27,7 +27,6 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-
                             <a class="nav-link active" aria-current="page" href="/HomepageServlet">Home</a>
                         </li>
 
@@ -73,15 +72,7 @@
                         %>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <%
-                                    UserDAO userDao = new UserDAO();
-                                    User user = userDao.getUserByName(username); 
-                                    session.setAttribute("user", user);
-                                    String img = (user != null) ? user.getAvatarUrl() : "song_img/avatar.jpg"; 
-                                %>
-
-                                
-                                <img src="<%= img %>" alt="Avatar" style="width:40px; height:40px; border-radius:50%;">
+                                <%= username %>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="profile.jsp">Profile</a></li>
