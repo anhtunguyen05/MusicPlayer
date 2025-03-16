@@ -16,9 +16,22 @@
         <servlet-name>SongServlet</servlet-name>
         <servlet-class>controller.SongServlet</servlet-class>
     </servlet>
+   
     <servlet>
         <servlet-name>PlaylistServlet</servlet-name>
         <servlet-class>controller.PlaylistServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>controller.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileServlet</servlet-name>
+        <servlet-class>controller.ProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadAvatarServlet</servlet-name>
+        <servlet-class>controller.UploadAvatarServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateVipStatusServlet</servlet-name>
@@ -77,6 +90,17 @@
         <url-pattern>/PlaylistServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileServlet</servlet-name>
+        <url-pattern>/ProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadAvatarServlet</servlet-name>
+        <url-pattern>/UploadAvatarServlet</url-pattern>
+    </servlet-mapping>
         <servlet-name>GetMySongServlet</servlet-name>
         <url-pattern>/GetMySongServlet</url-pattern>
     </servlet-mapping>
