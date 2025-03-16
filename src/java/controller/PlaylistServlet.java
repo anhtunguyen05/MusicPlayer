@@ -6,6 +6,7 @@ package controller;
 
 import DAO.PlaylistDAO;
 import DAO.Playlist_SongDAO;
+import dbcontext.ConnectDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,8 +14,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Date;
 import model.Playlist;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -60,7 +66,14 @@ public class PlaylistServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       String playlistId = request.getParameter("playlist_id");
+       PlaylistDAO p = new PlaylistDAO();
+       Playlist pl = p.getPlaylistById(playlistId);
+       request.setAttribute("playlistName", pl.getPlaylistName());
+       request.setAttribute("playlist_id", pl.getPlaylistId());
+       request.setAttribute("p.user_id", pl.getUserId());
+       request.getRequestDispatcher("playlist_detail.jsp").forward(request, response);
+       //response.sendRedirect("playlist_detail.jsp?playlist_id=" + playlistId);
     }
 
     /**
@@ -80,7 +93,6 @@ public class PlaylistServlet extends HttpServlet {
         Playlist_SongDAO playSong = new Playlist_SongDAO();
         switch (action) {
             case "add":
-
                 int songId = Integer.parseInt(request.getParameter("songId"));
                 int playlistId = Integer.parseInt(request.getParameter("playlistId"));
 
@@ -100,6 +112,15 @@ public class PlaylistServlet extends HttpServlet {
                 playSong.removeSongFromPlaylist(playlistIds, songIds);
                 response.sendRedirect("playlist_detail.jsp?playlist_id=" + playlistIds);
                 break;
+            case "delete":
+                p.deletePlaylist(request.getParameter("playlist_id"));
+                response.sendRedirect("HomepageServlet");
+                break;
+            case "update":
+                String name = request.getParameter("new_name");
+                Playlist pl = p.getPlaylistById(request.getParameter("playlist_id"));
+                pl.setPlaylistName(name);
+                p.updatePlaylist(pl);
             default:
                 throw new AssertionError();
         }

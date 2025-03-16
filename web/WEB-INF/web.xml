@@ -13,13 +13,10 @@
         <servlet-class>controller.RegisterServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UploadServlet</servlet-name>
-        <servlet-class>controller.UploadServlet</servlet-class>
+        <servlet-name>SongServlet</servlet-name>
+        <servlet-class>controller.SongServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>UpdateVipStatusServlet</servlet-name>
-        <servlet-class>controller.UpdateVipStatusServlet</servlet-class>
-    </servlet>
+   
     <servlet>
         <servlet-name>PlaylistServlet</servlet-name>
         <servlet-class>controller.PlaylistServlet</servlet-class>
@@ -36,6 +33,30 @@
         <servlet-name>UploadAvatarServlet</servlet-name>
         <servlet-class>controller.UploadAvatarServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateVipStatusServlet</servlet-name>
+        <servlet-class>controller.UpdateVipStatusServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetMySongServlet</servlet-name>
+        <servlet-class>controller.GetMySongServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomepageServlet</servlet-name>
+        <servlet-class>controller.HomepageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetPlaylistServlet</servlet-name>
+        <servlet-class>controller.GetPlaylistServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyPlaylistServlet</servlet-name>
+        <servlet-class>controller.MyPlaylistServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HistoryServlet</servlet-name>
+        <servlet-class>controller.HistoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -49,8 +70,16 @@
         <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UploadServlet</servlet-name>
-        <url-pattern>/UploadServlet</url-pattern>
+        <servlet-name>SongServlet</servlet-name>
+        <url-pattern>/SongServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>controller.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateVipStatusServlet</servlet-name>
@@ -72,7 +101,26 @@
         <servlet-name>UploadAvatarServlet</servlet-name>
         <url-pattern>/UploadAvatarServlet</url-pattern>
     </servlet-mapping>
+        <servlet-name>GetMySongServlet</servlet-name>
+        <url-pattern>/GetMySongServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomepageServlet</servlet-name>
+        <url-pattern>/HomepageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetPlaylistServlet</servlet-name>
+        <url-pattern>/GetPlaylistServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyPlaylistServlet</servlet-name>
+        <url-pattern>/MyPlaylistServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HistoryServlet</servlet-name>
+        <url-pattern>/HistoryServlet</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>homepage.jsp</welcome-file>
+        <welcome-file>/HomepageServlet</welcome-file>
     </welcome-file-list>
 </web-app>

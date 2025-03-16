@@ -9,21 +9,20 @@ import dbcontext.ConnectDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import model.User;
 
 /**
  *
  * @author pc
  */
-public class LoginServlet extends HttpServlet {
+public class GetPlaylistServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,10 +39,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");  
+            out.println("<title>Servlet GetPlaylistServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet GetPlaylistServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +59,50 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+         response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        // Lấy playlist_id từ request
+        String playlistId = request.getParameter("playlist_id");
+        JSONObject errorResponse = new JSONObject();
+        
+        if (playlistId == null) {
+            errorResponse.put("error", "Missing playlist_id");
+            response.getWriter().write(errorResponse.toJSONString());
+            return;
+        }
+
+        JSONArray songList = new JSONArray();
+
+        try (Connection conn = ConnectDB.getInstance().openConnection()) {
+            String query = "SELECT s.song_id, s.song_name, s.artist, s.file_url, s.song_img " +
+                           "FROM Playlist_Songs ps " +
+                           "JOIN Songs s ON ps.song_id = s.song_id " +
+                           "WHERE ps.playlist_id = ? ";
+            
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, Integer.parseInt(playlistId));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                JSONObject song = new JSONObject();
+                song.put("song_id", rs.getString("song_id"));
+                song.put("song_name", rs.getString("song_name"));
+                song.put("artist", rs.getString("artist"));
+                song.put("file_url", rs.getString("file_url"));
+                song.put("song_img", rs.getString("song_img") != null ? rs.getString("song_img") : 
+                          "https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg");
+
+                songList.add(song);
+            }
+
+            response.getWriter().write(songList.toJSONString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            errorResponse.put("error", "Internal server error");
+            response.getWriter().write(errorResponse.toJSONString());
+        } 
     } 
 
     /** 
@@ -73,50 +115,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String remember = request.getParameter("remember");
-
-        Cookie cu = new Cookie("cuser", username);
-        Cookie cp = new Cookie("cpass", password);
-        Cookie cr = new Cookie("crem", remember);
-        
-        if(remember!=null){
-            cu.setMaxAge(60*60*24*7);
-            cp.setMaxAge(60*60*24*7);
-            cr.setMaxAge(60*60*24*7);
-        }else{
-            cu.setMaxAge(0);
-            cp.setMaxAge(0);
-            cr.setMaxAge(0);
-        }
-        
-        response.addCookie(cu);
-        response.addCookie(cp);
-        response.addCookie(cr);
-        
-        try (Connection conn = ConnectDB.getInstance().openConnection()) {
-            String sql = "SELECT * FROM Users WHERE username = ? AND password_hash = ? AND is_verified = 1";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, username);
-            ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                int userId = rs.getInt("user_id");
-                String userIdStr = String.valueOf(userId);
-                HttpSession session = request.getSession();
-                session.setAttribute("user_id", userIdStr);
-                session.setAttribute("username", username);
-                response.sendRedirect("HomepageServlet");
-            } else {
-                response.sendRedirect("login.jsp?error=not_verified");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("login.jsp?error=1");
-        }
-
+        processRequest(request, response);
     }
 
     /** 

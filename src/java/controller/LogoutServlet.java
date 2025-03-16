@@ -61,7 +61,7 @@ public class LogoutServlet extends HttpServlet {
         if (session != null) {
             session.invalidate(); // Hủy session để đăng xuất
         }
-        response.sendRedirect("homepage.jsp"); 
+        response.sendRedirect("HomepageServlet"); 
     }
 
     /** 
