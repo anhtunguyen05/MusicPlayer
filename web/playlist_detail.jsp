@@ -32,11 +32,27 @@
       rel="stylesheet"
     />
 </head>
-<body data-fetch-page="get_playlist_detail.jsp">
+<body data-fetch-page="GetPlaylistServlet">
     <%@include file="/include/header.jsp"%>
+    
     <div class="container mt-5">
         
-        
+        <div class="playlist-header">
+            <h2><%= request.getAttribute("playlistName") %></h2>
+            <%
+                if (session.getAttribute("user_id") == request.getAttribute("p.user_id")){
+
+             %>
+            <div class="playlist-actions">
+                <button class="edit-btn" onclick="openEditForm()">Chỉnh sửa</button>
+                <button class="delete-btn" onclick="deletePlaylist(<%= request.getParameter("playlist_id") %>)">Xóa</button>
+            </div>
+             <%
+                }
+
+            %>
+        </div>
+            
         <h4>Danh sách bài hát</h4>
         <table class="table table-striped">
             
@@ -57,12 +73,8 @@
                     </div>
                   </div>    
             </div>
-            
-                
-            
         </table>
-
-        <a href="homepage.jsp" class="btn btn-secondary">Quay lại</a>
+        <a href="HomepageServlet" class="btn btn-secondary">Quay lại</a>
         
         
     </div>
@@ -137,8 +149,20 @@
 
         <audio id="audio" src=""></audio>
       </div>
+        
+    <%
+       if (session.getAttribute("user_id") != null){
+                
+            
+    %>
+      <%@include file="/include/updatePlaylist.jsp"%>
       <%@include file="/include/addPlaylist.jsp"%>
+      <script src="./js/feature.js?v=1.0"></script> 
+    <%
+        }
+        
+    %>
     <script src="./js/playlist_detail.js?v=1.0"></script>
-    <script src="./js/feature.js?v=1.0"></script>    
+       
 </body>
 </html>

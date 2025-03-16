@@ -31,8 +31,13 @@ public class TestDB {
         SongDAO songDAO = new SongDAO();
         List<User> l = userDAO.getUsersByName("j");
         System.out.println(l);
-        Playlist_SongDAO p = new Playlist_SongDAO();
-        p.removeSongFromPlaylist(5, 14);
+        
+        PlaylistDAO p = new PlaylistDAO();
+        p.deletePlaylist("9");
+//        System.out.println(p.getPlaylistsHomepage());
+//        songDAO.deleteSong("19");
+//        Playlist_SongDAO p = new Playlist_SongDAO();
+//        p.removeSongFromPlaylist(3, 17);
 //        songDAO.addSong(new Song("hehe", "haha", "hh",
 //                 "df", "dsf", 1, new java.sql.Date(new Date().getTime())));
  //       userDAO.addUser(new User( "Ha Dong", "hadong@gmail.com", "hadongngu", "hehe.img", true, "khongbiet", true));

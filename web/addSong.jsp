@@ -29,7 +29,7 @@
         <div class="container mt-5">
             <h2 class="text-center">🎶 Upload Nhạc Mới</h2>
 
-            <form action="UploadServlet" method="post" enctype="multipart/form-data" class="p-4 border rounded bg-light">
+            <form action="SongServlet" method="post" enctype="multipart/form-data" class="p-4 border rounded bg-light">
                 <div class="mb-3">
                     <label for="title" class="form-label">Tên bài hát</label>
                     <input type="text" class="form-control" id="song_name" name="song_name" required>
@@ -55,7 +55,7 @@
                     <input type="file" class="form-control" id="cover" name="cover" accept="image/*">
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">📤 Tải lên</button>
+                <input type="submit" name="command" value="add" class="btn btn-primary w-100">📤 Tải lên</button>
             </form>
         </div>
 

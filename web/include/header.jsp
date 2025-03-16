@@ -11,11 +11,11 @@
         <title>JSP Page</title>
     </head>
     <body>
+
         <%@ page session="true" %>
         <%
             String username = (String) session.getAttribute("username");
-        %>          
-
+        %>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"><img class="logo" src="./assets/img/logo.png" alt="alt"/></a>
@@ -27,7 +27,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="homepage.jsp">Home</a>
+
+                            <a class="nav-link active" aria-current="page" href="/HomepageServlet">Home</a>
                         </li>
 
                         <li class="nav-item">
@@ -47,7 +48,7 @@
                             <%
                                 if (username != null) { // Nếu đã đăng nhập
                             %>
-                            <a class="nav-link" href="./addSong.jsp">Up songs</a>
+                            <a class="nav-link" href="./SongServlet">Up songs</a>
                             <%
                                 } else { // Nếu chưa đăng nhập
                             %>

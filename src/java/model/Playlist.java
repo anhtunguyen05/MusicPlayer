@@ -8,6 +8,7 @@ public class Playlist {
     private String playlistImg;
     private int userId;
     private Date createdAt;
+    private int songNum;
 
     // Constructor
     public Playlist(int playlistId, String playlistName, String playlistImg, int userId, Date createdAt) {
@@ -25,6 +26,13 @@ public class Playlist {
         this.createdAt = createdAt;
     }
     
+     public Playlist(int playlistId, String playlistName, String playlistImg,  int songNum) {
+         this.playlistId = playlistId;
+        this.playlistName = playlistName;
+        this.playlistImg = playlistImg;
+        this.songNum = songNum;
+    }
+     
     // Getters and Setters
     public int getPlaylistId() {
         return playlistId;
@@ -66,9 +74,19 @@ public class Playlist {
         this.createdAt = createdAt;
     }
 
+    public int getSongNum() {
+        return songNum;
+    }
+
+    public void setSongNum(int songNum) {
+        this.songNum = songNum;
+    }
+
     @Override
     public String toString() {
-        return "Playlist{" + "playlistId=" + playlistId + ", playlistName=" + playlistName + ", playlistImg=" + playlistImg + ", userId=" + userId + ", createdAt=" + createdAt + '}';
+        return "Playlist{" + "playlistId=" + playlistId + ", playlistName=" + playlistName + ", playlistImg=" + playlistImg + ", userId=" + userId + ", createdAt=" + createdAt + ", songNum=" + songNum + '}';
     }
+
+   
     
 }

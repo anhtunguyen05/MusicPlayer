@@ -3,13 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
-const playlistId = new URLSearchParams(window.location.search).get("playlist_id");
-
+let playlistId = new URLSearchParams(window.location.search).get("playlist_id");
+if(playlistId==null){
+    playlistId="0";
+}
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-const PLAYER_STORAGE_KEY = "F8_PLAYER";
+const PLAYER_STORAGE_KEY = "MUSIC_PLAYER";
 
 const player = $(".player");
 const headingSong = $("header h2");
@@ -46,7 +48,7 @@ const app = {
   },
   
   loadSongs: function(){
-      fetch(fetchPage == 'get_playlist_detail.jsp' ?  `${fetchPage}?playlist_id=${playlistId}` : fetchPage)
+      fetch(fetchPage == 'GetPlaylistServlet' ?  `${fetchPage}?playlist_id=${playlistId}` : fetchPage)
           .then(response => response.json())
           .then(data => {
                console.log("Dữ liệu từ API:", data); // Kiểm tra dữ liệu nhận được
@@ -285,7 +287,21 @@ const app = {
     headingSong.textContent = this.currentSong.song_name;
     cdThumb.style.backgroundImage = `url('${this.currentSong.song_img}')`;
     audio.src = this.currentSong.file_url;
+    
   },
+  
+    saveHistory: function (songId) {
+      
+        fetch('HistoryServlet', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body:  new URLSearchParams({ songId: songId })
+        }).then(response => response.text())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => console.error("Lỗi:", error));
+    },
 
   loadConfig: function () {
     this.isRandom = this.config.isRandom;
@@ -314,7 +330,11 @@ const app = {
       });
     }, 300);
   },
+  
   handleKeyPress: (event) => {
+        if (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA") {
+          return;
+      }
        const skipTime = 5; // Số giây tua đi/tua lại
 
         switch (event.code) {
@@ -335,6 +355,7 @@ const app = {
         }
         
     },
+    
   startAfterLoading:  function () {
       
      if (!this.songs || this.songs.length === 0) {
@@ -356,7 +377,7 @@ const app = {
   
     //
     // this.nextSong();
-
+    this.saveHistory(this.currentSong.song_id);
     // Render playlist
     this.render();
 
