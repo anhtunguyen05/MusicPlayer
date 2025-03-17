@@ -1,0 +1,29 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 17, 2025, 2:22:02 AM
+    Author     : pc
+*/
+
+#suggestionList {
+    position: absolute;
+    width: 670px;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+}
+#suggestionList ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+#suggestionList li {
+    padding: 10px;
+    cursor: pointer;
+}
+#suggestionList li:hover {
+    background: #f0f0f0;
+}

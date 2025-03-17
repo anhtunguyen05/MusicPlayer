@@ -172,8 +172,12 @@ public class SongServlet extends HttpServlet {
                         song_img, file_url, userId, date);
                 songDao.addSong(song);
 
-                // Chuyển hướng lại trang upload
-                response.sendRedirect("homepage.jsp");
+                response.sendRedirect("mysong.jsp");
+                break;
+            case "search":
+                String search = request.getParameter("search");
+                request.setAttribute("search", search);
+                request.getRequestDispatcher("responseSearch.jsp").forward(request, response);
                 break;
             default:
                 throw new AssertionError();

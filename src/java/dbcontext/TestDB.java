@@ -31,9 +31,9 @@ public class TestDB {
         SongDAO songDAO = new SongDAO();
         List<User> l = userDAO.getUsersByName("j");
         System.out.println(l);
-        
-        PlaylistDAO p = new PlaylistDAO();
-        p.deletePlaylist("9");
+        System.out.println( songDAO.getSongsByName("bl"));
+//        PlaylistDAO p = new PlaylistDAO();
+//        p.deletePlaylist("9");
 //        System.out.println(p.getPlaylistsHomepage());
 //        songDAO.deleteSong("19");
 //        Playlist_SongDAO p = new Playlist_SongDAO();

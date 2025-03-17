@@ -49,7 +49,7 @@
                         </div>
                          <div class="form-group mb-3">
                           <input
-                            id="password"
+                            id="remember"
                             name="remember"
                             type="checkbox"
                             ${(cookie.crem!=null?'checked':'')}
