@@ -95,7 +95,7 @@ public class LoginServlet extends HttpServlet {
         response.addCookie(cr);
         
         try (Connection conn = ConnectDB.getInstance().openConnection()) {
-            String sql = "SELECT * FROM Users WHERE username = ? AND password_hash = ? AND is_verified = 1";
+            String sql = "SELECT * FROM Users WHERE username = ? AND password_hash = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
@@ -103,10 +103,16 @@ public class LoginServlet extends HttpServlet {
 
             if (rs.next()) {
                 int userId = rs.getInt("user_id");
+                String userIdStr = String.valueOf(userId);
                 HttpSession session = request.getSession();
-                session.setAttribute("user_id", userId);
+                session.setAttribute("user_id", userIdStr);
                 session.setAttribute("username", username);
+                if(userId == 2){
+                    response.sendRedirect("AdminServlet");
+                }
+                else{
                 response.sendRedirect("HomepageServlet");
+                }
             } else {
                 response.sendRedirect("login.jsp?error=not_correct");
             }

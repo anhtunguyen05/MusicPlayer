@@ -19,6 +19,6 @@
             <button class="save-btn" onclick="savePlaylist(<%= request.getParameter("playlist_id") %>)">Lưu</button>
             <button class="cancel-btn" onclick="closeEditForm()">Hủy</button>
         </div>
-            <script src="./js/feature.js?v=1.0"></script> 
+           
     </body>
 </html>

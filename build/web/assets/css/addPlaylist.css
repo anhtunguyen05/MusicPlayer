@@ -8,54 +8,58 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 
 .modal {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 400px;
-            height: 600px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-        }
-        .tabs {
-            display: flex;
-            justify-content: space-around;
-            cursor: pointer;
-            border-bottom: 2px solid #ddd;
-        }
-        .tab {
-            flex: 1;
-            padding: 10px;
-            font-size: 18px;
-            color: #333;
-        }
-        .actives {
-            color: orange;
-            font-weight: bold;
-            border-bottom: 3px solid orange;
-        }
-        .content {
-            display: none;
-            margin-top: 20px;
-        }
-        .content.actives {
-            display: block;
-        }
-        .button {
-            background-color: orange;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .music-item {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 600px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    cursor: pointer;
+    border-bottom: 2px solid #ddd;
+}
+.tab {
+    flex: 1;
+    padding: 10px;
+    font-size: 18px;
+    color: #333;
+}
+.actives {
+    color: orange;
+    font-weight: bold;
+    border-bottom: 3px solid orange;
+}
+.content {
+    display: none;
+    margin-top: 20px;
+}
+.content.actives {
+    display: block;
+}
+.button {
+    background-color: orange;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.title-playlist{
+     text-align: center;
+}
+.music-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    
+    justify-content: space-between;
     padding: 10px;
     border-radius: 5px;
 }
@@ -102,6 +106,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 .filter{
     width: 100%;
-    padding: 8px; 
+    padding: 8px;
     margin-top: 10px;
 }

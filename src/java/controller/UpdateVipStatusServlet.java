@@ -72,7 +72,7 @@ public class UpdateVipStatusServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Integer userId =  (Integer) session.getAttribute("user_id");
+        String userId =  (String) session.getAttribute("user_id");
 
         if (userId == null) {
             response.sendRedirect("login.jsp");
@@ -80,7 +80,7 @@ public class UpdateVipStatusServlet extends HttpServlet {
         }
         // Cập nhật trạng thái VIP cho người dùng
         UserDAO userDao = new UserDAO();
-        boolean success = userDao.updateVipStatus(userId, true);
+        boolean success = userDao.updateVipStatus(Integer.parseInt(userId), true);
 
         if (success) {
             session.setAttribute("isVip", true);

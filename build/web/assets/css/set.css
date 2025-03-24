@@ -1,0 +1,5 @@
+#changePasswordBtn, #saveChangesBtn, #themeToggleBtn {
+    width: 100%; /* Đảm bảo các nút có cùng kích thước */
+    max-width: 300px; /* Giới hạn chiều rộng tối đa */
+    text-align: center;
+}

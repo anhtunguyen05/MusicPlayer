@@ -112,7 +112,7 @@ public class LikeDAO {
     }
 
     // Xóa lượt thích theo ID
-    public void deleteLike(String idd) {
+    public void deleteLikeById(String idd) {
         try {
             ConnectDB db = ConnectDB.getInstance();
             Connection con = db.openConnection();
@@ -128,4 +128,26 @@ public class LikeDAO {
             Logger.getLogger(LikeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void deleteLike(int songId, int userId) {
+        try {
+            ConnectDB db = ConnectDB.getInstance();
+            Connection con = db.openConnection();
+
+            String sql = "DELETE FROM Likes WHERE song_id = ? AND user_id = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+
+         
+            statement.setInt(1, songId);
+            statement.setInt(2, userId);
+
+            statement.executeUpdate(); // Dùng executeUpdate() thay vì execute() vì nó trả về số hàng bị ảnh hưởng
+
+            statement.close();
+            con.close();
+        } catch (Exception ex) {
+            Logger.getLogger(LikeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

@@ -72,7 +72,14 @@
                           />
                           <span class="form-message"></span>
                         </div>
-                        
+                        <%
+                            String error = request.getParameter("error");
+                            if(error!=null){
+                        %>
+                         <h5 class="form-message text-danger">Username has exist, please change your username!</h5>
+                        <%
+                            }
+                        %>
                         <button type="submit" class="btn btn-success w-100">Đăng ký</button>
                     </form>
                     <p class="text-center mt-3">Đã có tài khoản? <a href="login.jsp">Đăng nhập</a></p>

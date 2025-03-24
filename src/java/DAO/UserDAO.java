@@ -207,5 +207,71 @@ public class UserDAO {
         }
         return success; // Trả về kết quả thành công hoặc thất bại
     }
+    
+    public User getUserByName(String name) {
+        ConnectDB db = ConnectDB.getInstance();
+        String sql = "SELECT TOP 1 * FROM Users WHERE username LIKE ?;"; // Chỉ lấy 1 kết quả đầu tiên  
 
+        try {
+            Connection con = db.openConnection();
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, "%" + name + "%"); // Tìm kiếm gần đúng  
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) { // Nếu có kết quả  
+                int userId = rs.getInt("user_id");
+                String username = rs.getString("username");
+                String email = rs.getString("email");
+                String passwordHash = rs.getString("password_hash");
+                String avatarUrl = rs.getString("avatar_url");
+                boolean isVip = rs.getBoolean("is_vip");
+                String verificationCode = rs.getString("verification_code");
+                boolean isVerified = rs.getBoolean("is_verified");
+
+                // Trả về đối tượng User  
+                return new User(userId, username, email, passwordHash, avatarUrl, isVip, verificationCode, isVerified);
+            }
+
+            rs.close();
+            statement.close();
+            con.close();
+        } catch (Exception ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null; // Nếu không tìm thấy user nào  
+    }
+
+    
+     public void updateAvatar(String userID, String avatarUrl) {
+        String sql = "UPDATE Users SET avatar_url = ? WHERE user_id = ?";
+        ConnectDB db = ConnectDB.getInstance();
+        try (Connection conn = db.openConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, avatarUrl);
+            stmt.setString(2, userID);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+     public boolean changePassword(int userId, String newPassword) {
+        boolean success = false;
+        String sql = "UPDATE Users SET password_hash = ? WHERE user_id = ?";
+        ConnectDB db = ConnectDB.getInstance();
+
+        try {
+            Connection con = db.openConnection();
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, newPassword);  // Phải là mật khẩu đã mã hóa
+            statement.setInt(2, userId);
+
+            int rowsUpdated = statement.executeUpdate();
+            success = rowsUpdated > 0;
+
+            statement.close();
+            con.close();
+        } catch (Exception ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return success;
+    }
 }

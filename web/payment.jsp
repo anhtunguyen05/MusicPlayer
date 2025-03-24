@@ -103,6 +103,7 @@
                 border-radius: 5px;
                 cursor: pointer;
                 margin-top: 20px;
+                width: 200px
             }
 
             .btn-upgrade:hover {
@@ -129,7 +130,11 @@
                     </ul>
                 </div>
 
-                <button class="btn-upgrade" onclick="showQRCode()">Get Started</button>
+                <button class="btn-upgrade" onclick="showQRCode()">Donate for us</button>
+                <form  action="payment" method="post">
+                    <input type="hidden" name="totalBill" value="20000">
+                    <button class="btn-upgrade" type="submit">Get Started</button>
+                </form>
             </div>
 
             <!-- QR Code for payment -->
@@ -141,7 +146,7 @@
         </div>
 
         <script src="./js/payment.js"></script>
-        
+
     </body>
 
 </html>

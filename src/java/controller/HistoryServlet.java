@@ -69,12 +69,26 @@ public class HistoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        Integer userId = (Integer) session.getAttribute("user_id");
-        Integer songId = Integer.parseInt(request.getParameter("songId")) ;
+        String userId = (String) session.getAttribute("user_id");
+        
         
         HistoryDAO h = new HistoryDAO();
-        h.addHistory(new History(userId, songId));
+        switch (action) {
+            case "add":
+                Integer songId = Integer.parseInt(request.getParameter("songId")) ;
+                h.addHistory(new History(Integer.parseInt(userId), songId));
+                break;
+            case "remove":
+                String historyId = request.getParameter("history_id");
+                h.deleteHistory(historyId);
+                break;
+                
+            default:
+                throw new AssertionError();
+        }
+        
     }
 
     /** 

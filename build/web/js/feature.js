@@ -39,6 +39,13 @@ function showPlaylistForm(event, songId) {
     document.querySelectorAll(".add-to-playlist").forEach(button => {
         button.setAttribute("data-song-id", songId);
     });
+    
+     fetch('GetSongIdServlet?song_id=' + songId) 
+        .then(response => response.text())
+        .then(html => {
+            
+        })
+        .catch(error => console.error("Lỗi:", error));
 
 
 }
@@ -70,20 +77,18 @@ document.addEventListener("DOMContentLoaded", function () {
             })
                     .then(response => response.text())
                     .then(data => {
-                        if (data.trim() === "success") {
-                            alert("Đã thêm vào playlist!");
-                        } else {
-                            alert("Lỗi: " + data);
-                        }
+
+
+
                     })
                     .catch(error => console.error("Error:", error));
         });
     });
 
     document.querySelectorAll(".create-playlist").forEach(button => {
+        button.onclick = null; // 🔥 Xóa sự kiện cũ trước khi gán mới
         button.addEventListener("click", function (event) {
-            event.preventDefault(); // Ngăn chặn chuyển trang
-
+            event.preventDefault(); // Ngăn chặn hành vi mặc định nếu có
             var playlistName = document.querySelector("#create-playlist").value;
 
             fetch("PlaylistServlet", {
@@ -93,11 +98,6 @@ document.addEventListener("DOMContentLoaded", function () {
             })
                     .then(response => response.text())
                     .then(data => {
-                        if (data.trim() === "success") {
-                            alert("Đã thêm vào playlist!");
-                        } else {
-                            alert("Lỗi: " + data);
-                        }
                         location.reload();
                     })
                     .catch(error => console.error("Error:", error));
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function removeFromPlaylist(event, songId, playlistId) {
     event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a hoặc button
-
+    
     if (!songId) {
         console.error("Lỗi: Thiếu songId");
         return;
@@ -116,7 +116,7 @@ function removeFromPlaylist(event, songId, playlistId) {
 
     let url, bodyData;
 
-    if (playlistId == 0) {
+    if (playlistId == "0") {
         // Xóa bài hát người dùng đăng
         console.log("Gửi request đến SongServlet...", playlistId);
         url = "SongServlet";
@@ -157,27 +157,51 @@ function deletePlaylist(playlistId) {
     }
 }
 
+function removeFromHistory(event, historyId) {
+      
+        fetch('HistoryServlet', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: new URLSearchParams({
+                action: 'remove',
+                historyId: historyId
+            })
+        }).then(response => response.text())
+                .then(data => {
+                    location.reload();
+                    console.log(data);
+                })
+                .catch(error => console.error("Lỗi:", error));
+    
+}
+
 function openEditForm() {
     document.getElementById("edit-form-container").classList.remove("hidden");
- }
+}
 
 function closeEditForm() {
     document.getElementById("edit-form-container").classList.add("hidden");
 }
-  
- function savePlaylist(playlistId) {
-        const newName = document.getElementById("edit-playlist-name").value;
-        
-        fetch('PlaylistServlet', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `action=update&playlist_id=${playlistId}&new_name=${newName}`
-        })
-        .then(response => response.text())
-        .then(data => {
-           
-            //document.getElementById("playlist-name").innerText = newName;
-            closeEditForm();
-            location.reload();
-        });
-    }
+
+function savePlaylist(playlistId) {
+    const newName = document.getElementById("edit-playlist-name").value;
+    const newImg = document.getElementById("edit-playlist-img").value;
+    
+    fetch('PlaylistServlet', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `action=update&playlist_id=${playlistId}&new_name=${newName}&playlist_cover=$`
+    })
+            .then(response => response.text())
+            .then(data => {
+
+                //document.getElementById("playlist-name").innerText = newName;
+                closeEditForm();
+                location.reload();
+            });
+}
+
+function sendSongId(songId) {
+    document.getElementById("songId").value = songId;
+    document.getElementById("addSongForm").submit();
+}

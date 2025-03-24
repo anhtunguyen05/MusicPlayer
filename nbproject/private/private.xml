@@ -3,23 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/include/header.jsp</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/src/java/DAO/SongDAO.java</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/src/java/controller/GetSearchNameServlet.java</file>
             <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/src/java/controller/SongServlet.java</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/login.jsp</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/playlist_detail.jsp</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/js/search.js</file>
+            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/js/feature.js</file>
             <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/js/playlist_detail.js</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/src/java/controller/GetSearchServlet.java</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/src/java/model/History.java</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/responseSearch.jsp</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/src/java/controller/PlaylistServlet.java</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/assets/css/search.css</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/history.jsp</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/src/java/controller/GetHistoryServlet.java</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/src/java/DAO/HistoryDAO.java</file>
+            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/library.jsp</file>
+            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/include/nav_libary.jsp</file>
+            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/payment.jsp</file>
+            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/src/java/controller/GetSongIdServlet.java</file>
+            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/include/addPlaylist.jsp</file>
+            <file>file:/C:/Users/pc/Documents/NetBeansProjects/MusicWebPlayer/web/include/playlist.jsp</file>
         </group>
     </open-files>
 </project-private>

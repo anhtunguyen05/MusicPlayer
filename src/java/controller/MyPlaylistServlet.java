@@ -60,12 +60,11 @@ public class MyPlaylistServlet extends HttpServlet {
     throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-        Integer userId = (Integer) session.getAttribute("user_id");
+        String userId = (String) session.getAttribute("user_id");
         
         PlaylistDAO p = new PlaylistDAO();
         
-        List<Playlist> pl = p.getPlaylistsByUserId(userId);
-        System.out.println(pl);
+        List<Playlist> pl = p.getPlaylistsByUserId(Integer.parseInt(userId));
         request.setAttribute("playlistList", pl);
         RequestDispatcher dispatcher = request.getRequestDispatcher("myPlaylist.jsp");
         dispatcher.forward(request, response);

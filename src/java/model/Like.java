@@ -16,6 +16,12 @@ public class Like {
         this.createdAt = createdAt;
     }
 
+     public Like(int songId, int userId, Date createdAt) {
+        this.songId = songId;
+        this.userId = userId;
+        this.createdAt = createdAt;
+    }
+    
     // Getters and Setters
     public int getLikeId() {
         return likeId;

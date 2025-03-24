@@ -10,10 +10,16 @@ import dbcontext.ConnectDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,8 +32,13 @@ import org.json.simple.JSONObject;
  *
  * @author pc
  */
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 50, // 50MB
+        maxRequestSize = 1024 * 1024 * 100 // 100MB
+)
 public class PlaylistServlet extends HttpServlet {
-
+    private static final String UPLOAD_DIR_COVER = "playlist_img";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -71,7 +82,9 @@ public class PlaylistServlet extends HttpServlet {
        Playlist pl = p.getPlaylistById(playlistId);
        request.setAttribute("playlistName", pl.getPlaylistName());
        request.setAttribute("playlist_id", pl.getPlaylistId());
-       request.setAttribute("p.user_id", pl.getUserId());
+       request.setAttribute("p.user_id", String.valueOf(pl.getUserId()));
+       String img = pl.getPlaylistImg() != null ? pl.getPlaylistImg() : "./playlist_img/anhst1.jpg";
+       request.setAttribute("playlist_img", img);
        request.getRequestDispatcher("playlist_detail.jsp").forward(request, response);
        //response.sendRedirect("playlist_detail.jsp?playlist_id=" + playlistId);
     }
@@ -99,12 +112,12 @@ public class PlaylistServlet extends HttpServlet {
                 playSong.addSongToPlaylist(playlistId, songId);
                 break;
             case "create":
-                Integer userId = (Integer) request.getSession().getAttribute("user_id");
+                String userId =  (String) request.getSession().getAttribute("user_id");
 
                 String playlistName = request.getParameter("playlistName");
                 Date date = new java.sql.Date(new Date().getTime());
 
-                p.addPlaylist(new Playlist(playlistName, null, userId, date));
+                p.addPlaylist(new Playlist(playlistName, "./playlist_img/anhst1.jpg", Integer.parseInt(userId), date));
                 break;
             case "remove":
                 int songIds = Integer.parseInt(request.getParameter("songId"));
@@ -118,9 +131,48 @@ public class PlaylistServlet extends HttpServlet {
                 break;
             case "update":
                 String name = request.getParameter("new_name");
-                Playlist pl = p.getPlaylistById(request.getParameter("playlist_id"));
-                pl.setPlaylistName(name);
-                p.updatePlaylist(pl);
+                if(name!=null){
+                    Playlist pl = p.getPlaylistById(request.getParameter("playlist_id"));
+                    pl.setPlaylistName(name);
+                    p.updatePlaylist(pl);
+                }
+                else{
+                    String playlistIdss = request.getParameter("playlist_id");
+                    Part coverPart = (Part) request.getPart("playlist_cover");
+
+                    String coverFileName = coverPart != null ? Paths.get(coverPart.getSubmittedFileName()).getFileName().toString() : null;
+
+                    // Lưu file lên server
+                    String appPath = getServletContext().getRealPath("");
+                    String appPathOther = appPath;
+                    String savePath = appPath.replace("build\\web", "web");
+                    String uploadPathImg = savePath + UPLOAD_DIR_COVER;
+
+                    if (coverPart != null && coverPart.getSize() > 0) {  // Kiểm tra file có dữ liệu không
+                        coverFileName = Paths.get(coverPart.getSubmittedFileName()).getFileName().toString();
+
+                        File uploadImgDir = new File(uploadPathImg);
+                        if (!uploadImgDir.exists()) {
+                            uploadImgDir.mkdir();
+                        }
+
+                        coverPart.write(uploadPathImg + File.separator + coverFileName);
+                        Files.copy(Paths.get(uploadPathImg + File.separator + coverFileName),
+                                Paths.get(appPathOther + UPLOAD_DIR_COVER + File.separator + coverFileName),
+                                StandardCopyOption.REPLACE_EXISTING);
+                    } else {
+                        coverFileName = null; // Không có ảnh bìa
+                    }
+                    String playlist_img = coverFileName != null ? "./" + UPLOAD_DIR_COVER + "/" + coverFileName : "";
+                    
+                    Playlist pl = p.getPlaylistById(playlistIdss);
+                    pl.setPlaylistImg(playlist_img);
+                    p.updatePlaylist(pl);
+                    
+                    response.sendRedirect("PlaylistServlet?playlist_id="+playlistIdss);
+                }
+                
+                break;
             default:
                 throw new AssertionError();
         }

@@ -1,0 +1,27 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 17, 2025, 11:11:34 PM
+    Author     : pc
+*/
+
+/*.navbar-nav .nav-link {
+    color: #000;  Màu chữ mặc định 
+    transition: color 0.3s, background-color 0.3s;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff;  Màu xanh khi hover 
+    background-color: rgba(0, 123, 255, 0.1);
+}*/
+
+.navbar-nav .nav-link.active {
+    font-weight: bold;
+/*    color: #fff !important;
+    background-color: #007bff;  Màu xanh dương 
+    border-radius: 5px;*/
+}

@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     </head>
     <body>
+         
         <%@ page session="true" %>
         <%
             Boolean isVip = (Boolean) session.getAttribute("isVip");
@@ -25,7 +26,7 @@
                 session.removeAttribute("isVip"); // Xóa cờ để không hiển thị lại thông báo
             }
         %>
-
+        <%@include file="/include/header.jsp"%>
         <div class="container mt-5">
             <h2 class="text-center">🎶 Upload Nhạc Mới</h2>
 

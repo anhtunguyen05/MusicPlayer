@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
 
 import dbcontext.ConnectDB;
@@ -12,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,34 +23,37 @@ import org.json.simple.JSONObject;
  * @author pc
  */
 public class GetSearchServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet GetSearchServlet</title>");  
+            out.println("<title>Servlet GetSearchServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet GetSearchServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet GetSearchServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -58,14 +61,16 @@ public class GetSearchServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-         response.setContentType("application/json");
+            throws ServletException, IOException {
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        // Lấy playlist_id từ request
-         String search = request.getParameter("search");
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("user_id");
+
+        String search = request.getParameter("search");
         JSONObject errorResponse = new JSONObject();
-        
+
         if (search == null) {
             errorResponse.put("error", "Missing search_value");
             response.getWriter().write(errorResponse.toJSONString());
@@ -75,10 +80,30 @@ public class GetSearchServlet extends HttpServlet {
         JSONArray songList = new JSONArray();
 
         try (Connection conn = ConnectDB.getInstance().openConnection()) {
-            String query = "SELECT * FROM Songs WHERE song_name LIKE ?";
-            
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, "%" + search + "%");
+            String query;
+            PreparedStatement ps;
+
+            if (userId != null) {
+                query = """
+            SELECT s.song_id, s.song_name, s.artist, s.file_url, s.song_img,
+                   CASE WHEN l.user_id IS NOT NULL THEN 1 ELSE 0 END AS liked
+            FROM Songs s
+            LEFT JOIN Likes l ON s.song_id = l.song_id AND l.user_id = ?
+            WHERE s.song_name LIKE ?
+        """;
+                ps = conn.prepareStatement(query);
+                ps.setInt(1, Integer.parseInt(userId));
+                ps.setString(2, "%" + search + "%");
+            } else {
+                query = """
+            SELECT s.song_id, s.song_name, s.artist, s.file_url, s.song_img
+            FROM Songs s
+            WHERE s.song_name LIKE ?
+        """;
+                ps = conn.prepareStatement(query);
+                ps.setString(1, "%" + search + "%");
+            }
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -87,8 +112,12 @@ public class GetSearchServlet extends HttpServlet {
                 song.put("song_name", rs.getString("song_name"));
                 song.put("artist", rs.getString("artist"));
                 song.put("file_url", rs.getString("file_url"));
-                song.put("song_img", rs.getString("song_img") != null ? rs.getString("song_img") : 
-                          "https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg");
+                song.put("song_img", rs.getString("song_img") != null ? rs.getString("song_img")
+                        : "https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg");
+
+                if (userId != null) {
+                    song.put("liked", rs.getInt("liked") == 1);
+                }
 
                 songList.add(song);
             }
@@ -99,11 +128,13 @@ public class GetSearchServlet extends HttpServlet {
             e.printStackTrace();
             errorResponse.put("error", "Internal server error");
             response.getWriter().write(errorResponse.toJSONString());
-        } 
-    } 
+        }
 
-    /** 
+    }
+
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -111,12 +142,13 @@ public class GetSearchServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

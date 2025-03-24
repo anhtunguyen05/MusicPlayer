@@ -35,118 +35,13 @@
     
     <div class="container mt-5">
         
-        <div class="playlist-header">
-            <h2><%= request.getAttribute("playlistName") %></h2>
-            <%
-                if (session.getAttribute("user_id") == request.getAttribute("p.user_id")){
-
-             %>
-            <div class="playlist-actions">
-                <button class="edit-btn" onclick="openEditForm()">Chỉnh sửa</button>
-                <button class="delete-btn" onclick="deletePlaylist(<%= request.getParameter("playlist_id") %>)">Xóa</button>
-            </div>
-             <%
-                }
-
-            %>
-        </div>
+       
             
-        <h4>Danh sách bài hát</h4>
-        <table class="table table-striped">
-            
-            <div class="playlist">
-                 <div class="song">
-                    <div
-                      class="thumb"
-                      style="
-                        background-image: url('https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg');
-                      "
-                    ></div>
-                    <div class="body">
-                      <h3 class="title"></h3>
-                      <p class="author"></p>
-                    </div>
-                    <div class="option">
-                      <i class="fas fa-ellipsis-h"></i>
-                    </div>
-                  </div>    
-            </div>
-        </table>
-        <a href="HomepageServlet" class="btn btn-secondary">Quay lại</a>
+        <%@include file="/include/playlist.jsp"%> 
         
         
     </div>
-    <div class="dashboard player">
-        <!-- Header -->
-        <div class="dashboard__left">
-          <header>
-            <h2>Now playing:</h2>
-            <h4>String 57th & 9th</h4>
-          </header>
-
-          <!-- CD -->
-          <div class="cd">
-            <div
-              class="cd-thumb"
-              style="
-                background-image: url('https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg');
-              "
-            ></div>
-          </div>
-        </div>
-
-        <div class="dashboard__center">
-          <!-- Control -->
-          <div class="control">
-            <div class="btn btn-repeat">
-              <i class="fas fa-redo"></i>
-            </div>
-            <div class="btn btn-prev">
-              <i class="fas fa-step-backward"></i>
-            </div>
-            <div class="btn btn-toggle-play">
-              <i class="fa-solid fa-pause icon-pause"></i>
-              <i class="fa-solid fa-play icon-play"></i>
-            </div>
-            <div class="btn btn-next">
-              <i class="fas fa-step-forward"></i>
-            </div>
-            <div class="btn btn-random">
-              <i class="fas fa-random"></i>
-            </div>
-          </div>
-
-          <!-- song progress -->
-          <form id="adTime">
-            <span id="current-time" class="time">0:00</span>
-            <input
-              id="progress"
-              class="progress"
-              type="range"
-              value="0"
-              step="1"
-              min="0"
-              max="100"
-            />
-            <span id="duration" class="time">0:00</span>
-          </form>
-        </div>
-
-        <form id="adVolume" action="">
-          <i id="mute" class="fa-solid fa-volume-high"></i>
-          <input
-            id="volume"
-            class="progress"
-            type="range"
-            value="100"
-            step="1"
-            min="0"
-            max="100"
-          />
-        </form>
-
-        <audio id="audio" src=""></audio>
-      </div>
+     <%@include file="/include/dashboard.jsp"%>
         
     <%
        if (session.getAttribute("user_id") != null){

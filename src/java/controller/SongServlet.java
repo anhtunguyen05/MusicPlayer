@@ -85,17 +85,17 @@ public class SongServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Integer userId = (Integer) session.getAttribute("user_id");
+        String userId = (String) session.getAttribute("user_id");
         // Kiểm tra quyền VIP của người dùng
         UserDAO userDao = new UserDAO();
-        User user = userDao.getUserById(userId.toString());
+        User user = userDao.getUserById(userId);
 
         if (!user.isVip()) {
             System.out.println("⚠ Người dùng không có quyền VIP, chuyển hướng đến payment.jsp!");
             response.sendRedirect("payment.jsp");
             return;
         }else{
-            response.sendRedirect("addSong.jsp");
+            request.getRequestDispatcher("addSong.jsp").forward(request, response);
         }
     }
 
@@ -112,7 +112,7 @@ public class SongServlet extends HttpServlet {
             throws ServletException, IOException {
         String command = request.getParameter("command");
         HttpSession session = request.getSession();
-        Integer userId = (Integer) session.getAttribute("user_id");
+        String userId = (String) session.getAttribute("user_id");
          SongDAO songDao = new SongDAO();
         if (userId == null) {
             System.out.println("⚠ Không tìm thấy user_id trong session!");
@@ -148,6 +148,18 @@ public class SongServlet extends HttpServlet {
                 String uploadPath = savePath + UPLOAD_DIR;
                 String uploadPathImg = savePath + UPLOAD_DIR_COVER;
 
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+                
+                filePart.write(uploadPath + File.separator + fileName);
+                Files.copy(
+                    Paths.get(uploadPath + File.separator + fileName),
+                    Paths.get(appPath + UPLOAD_DIR + File.separator + fileName),
+                    StandardCopyOption.REPLACE_EXISTING
+                );
+                
                 if (coverPart != null && coverPart.getSize() > 0) {  // Kiểm tra file có dữ liệu không
                     coverFileName = Paths.get(coverPart.getSubmittedFileName()).getFileName().toString();
 
@@ -169,10 +181,10 @@ public class SongServlet extends HttpServlet {
                 Date date = new java.sql.Date(new Date().getTime());
 
                 Song song = new Song(name, artist, genre,
-                        song_img, file_url, userId, date);
+                        song_img, file_url, Integer.parseInt(userId), date);
                 songDao.addSong(song);
 
-                response.sendRedirect("mysong.jsp");
+                response.sendRedirect("LibraryServlet?data-fetch-page=GetMySongServlet");
                 break;
             case "search":
                 String search = request.getParameter("search");

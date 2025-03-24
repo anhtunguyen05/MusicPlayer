@@ -1,0 +1,39 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 20, 2025, 3:41:07 AM
+    Author     : pc
+*/
+
+.avatar-img {
+    width: 150px; /* Đảm bảo kích thước cố định */
+    height: 150px;
+    object-fit: cover; /* Giữ nguyên tỉ lệ và cắt ảnh vừa khung */
+    border-radius: 50% !important; /* Làm tròn ảnh */
+    border: 3px solid white; /* Tạo viền trắng (tuỳ chọn) */
+}
+.upload-container {
+    position: relative;
+    width: 100%;
+}
+
+.upload-menu {
+    display: none;
+    position: absolute;
+    top: 110%; /* Hiển thị ngay dưới avatar */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px; /* Điều chỉnh độ rộng */
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 10; /* Giúp menu luôn hiển thị trên mọi thứ */
+}
+
+.upload-menu button {
+    margin-top: 5px;
+}

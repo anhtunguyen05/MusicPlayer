@@ -116,7 +116,7 @@ public class HistoryDAO {
         try {
             ConnectDB db = ConnectDB.getInstance();
             Connection con = db.openConnection();
-            String sql = "DELETE FROM MUSICPLAYER.History WHERE history_id=?";  // Cập nhật với tên cơ sở dữ liệu MUSICPLAYER
+            String sql = "DELETE FROM History WHERE history_id=?";  // Cập nhật với tên cơ sở dữ liệu MUSICPLAYER
             PreparedStatement statement = con.prepareStatement(sql);
             int historyId = Integer.parseInt(idd);
             statement.setInt(1, historyId);
